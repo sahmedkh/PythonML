@@ -10,7 +10,7 @@ positions = {}
 i = 1
 
 # Providing data from the csv file
-with open('C:/Users/ahmed/OneDrive/Documents/Code/PythonML/linear_regression/salary.csv', mode ='r') as file:
+with open('C:/Users/ahmed/OneDrive/Documents/Code/PythonML/Assignment_1/salary.csv', mode ='r') as file:
     next(file)
     csvFile = csv.reader(file)
     for lines in csvFile:
