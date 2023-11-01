@@ -1,36 +1,31 @@
 # Importing The necessary packages
-import numpy
-import csv
+import pandas
 from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
 
-# Variable declarations
-x = []
-y = []
-positions = {}
-i = 1
+# Providing data from the csv file and dividing it
+df = pandas.read_csv("C:/Users/ahmed/OneDrive/Documents/Code/PythonML/Assignment_1/insurance.csv")
 
-# Providing data from the csv file
-with open('C:/Users/ahmed/OneDrive/Documents/Code/PythonML/Assignment_1/salary.csv', mode ='r') as file:
-    next(file)
-    csvFile = csv.reader(file)
-    for lines in csvFile:
-        if lines[0] not in positions.values():   
-            positions[i] = lines[0]
-            i+=1 
-        x.append([i, int(lines[1])])
-        y.append(int(lines[2]))
-x, y = numpy.array(x), numpy.array(y)
+x = df[['age', 'sex', 'bmi', 'children', 'smoker', 'region']]
+one_hot_x = pandas.get_dummies(x, columns = ['sex', 'smoker', 'region'])
+y = df['charges']
+x_train, x_test, y_train, y_test = train_test_split(one_hot_x, y, test_size=0.3, random_state=0) 
 
 # Creating and fitting the model
 model = LinearRegression()
-model.fit(x[0:7], y[0:7])
+model.fit(x_train, y_train)
 
-# Getting results
-r_sq = model.score(x[0:7], y[0:7])
-print("Coeffecient of determination: ", r_sq)
+# Getting summary of the model
+r_sq = model.score(x_train, y_train)
+print("Model score: ", r_sq)
 print("Intercept: ", model.intercept_)
 print("Coefficients: ", model.coef_)
 
-# Predicting a response
-y_pred = model.predict(numpy.array(x[7:10]).reshape((-1, 2)))
-print("Predicted response: ", y_pred)
+# Predicting new values using the testing subset
+y_pred = model.predict(x_test)
+y_pred = [round(num, 2) for num in y_pred]
+print("Predicted responses: ", y_pred)
+
+# Score for the testing subset
+r2_sq = model.score(x_test, y_test)
+print("The score for the testing subset: ", r2_sq)
