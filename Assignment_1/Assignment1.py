@@ -1,10 +1,11 @@
+
 # Importing The necessary packages
 import pandas
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 
 # Providing data from the csv file and dividing it
-df = pandas.read_csv("C:/Users/ahmed/OneDrive/Documents/Code/PythonML/Assignment_1/insurance.csv")
+df = pandas.read_csv("insurance.csv")
 
 x = df[['age', 'sex', 'bmi', 'children', 'smoker', 'region']]
 one_hot_x = pandas.get_dummies(x, columns = ['sex', 'smoker', 'region'])
