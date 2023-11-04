@@ -8,7 +8,7 @@ df = pandas.read_csv("C:/Users/ahmed/OneDrive/Documents/Code/PythonML/Assignment
 x = df[['age', 'sex', 'bmi', 'children', 'smoker', 'region']]
 y = df['charges']
 
-# Encoding categorical data to be numerical
+# Encoding categorical data to be numerical using one hot encoding
 one_hot_x = pandas.get_dummies(x, columns = ['sex', 'smoker', 'region'])
 
 # Splitting the dataset into training and testing
