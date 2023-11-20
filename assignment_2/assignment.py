@@ -19,8 +19,10 @@ logr = linear_model.LogisticRegression()
 logr.fit(x_train,y_train)
 
 # Getting the classification report on the test data
-print()
-print("Summary of the logistic regression model")
+print('\n' + ('-'*25) + ' Logistic Regression ' + ('-'*25))
+print("\nSummary of training data: ")
+print(classification_report(y_train, logr.predict(x_train)))
+print("\nSummary of testing data:")
 print(classification_report(y_test, logr.predict(x_test)))
 
 # Fitting a decision tree model
@@ -28,8 +30,10 @@ clf = tree.DecisionTreeClassifier()
 clf = clf.fit(x_train, y_train)
 
 # Getting the classification report on the test data
-print()
-print("Summary of the decision tree model")
+print('\n' + ('-'*25) + ' Decision Trees ' + ('-'*25))
+print("\nSummary of training data:")
+print(classification_report(y_train, clf.predict(x_train)))
+print("\nSummary of testing data:")
 print(classification_report(y_test, clf.predict(x_test)))
 
 # Fitting a KNN model
@@ -37,6 +41,8 @@ nbrs = KNeighborsClassifier(n_neighbors=3)
 nbrs = nbrs.fit(x_train, y_train)
 
 # Getting the classification report on the test data
-print()
-print("Summary of the K nearest neighbors model")
+print('\n' + ('-'*25) + ' K-Nearest Neighbors ' + ('-'*25))
+print("\nSummary of training data:")
+print(classification_report(y_train, nbrs.predict(x_train)))
+print("\nSummary of testing data:")
 print(classification_report(y_test, nbrs.predict(x_test)))
