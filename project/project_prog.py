@@ -70,7 +70,7 @@ y= y[:-15]
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
 # Model 1: K-Nearest Neighbors (KNN)
-knn_model = KNeighborsClassifier()
+knn_model = KNeighborsClassifier(n_neighbors=1)
 knn_model.fit(X_train, y_train)
 
 # Model 2: Decision Trees
