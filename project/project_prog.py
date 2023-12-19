@@ -86,7 +86,7 @@ print()
 models = [knn_model, dt_model, log_model]
 model_names = ['K-Nearest Neighbors', 'Decision Tree', 'Logistic Regression']
 for item in zip(models, model_names):
-    scores = cross_val_score(item[0], X_train, y_train, cv=10, scoring='accuracy')
+    scores = cross_val_score(item[0], X, y, cv=10, scoring='accuracy')
     print(item[1] + " Cross Validation Score: " + str(scores.mean())[:5])
 
 # Getting the predicted values using the testing set
