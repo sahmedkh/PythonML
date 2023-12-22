@@ -1,7 +1,4 @@
-import os
-import cv2
-import numpy as np
-import random
+# IMporting the necessary libraries
 from sklearn import preprocessing
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.neighbors import KNeighborsClassifier
@@ -9,7 +6,12 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
-# Function to load and preprocess images from a folder
+import os
+import cv2
+import numpy as np
+import random
+
+#  Loads and preprocessess the images from a specified folder
 def process(folder, label):
     images = []
     labels = []
@@ -26,7 +28,7 @@ def process(folder, label):
             labels.append(label)
     return images, labels
 
-# A function to print The result in a table like format
+# Prints The results in a table like format
 def print_metrics(y_test, y_pred_knn, y_pred_dt, y_pred_log):
     print('\n' + ('-'*29) + f' {'Score Report'} ' + ('-'*29))
     print("{:<15} {:<20} {:<15} {:<15}".format('Metric', 'K-Nearest Neighbors', 'Decision Trees', 'Logistic Regression'))
@@ -42,11 +44,11 @@ def print_metrics(y_test, y_pred_knn, y_pred_dt, y_pred_log):
     for metric, (knn_metric, dt_metric, log_metric) in metrics.items():
         print("{:<15} {:<20.4f} {:<15.4f} {:<15.4f}".format(metric, knn_metric, dt_metric, log_metric))
 
-# Load and preprocess training data
-yes_images, yes_labels = process('C:/Users/ahmed/Downloads/brain_mri/yes', 1)
-no_images, no_labels = process('C:/Users/ahmed/Downloads/brain_mri/no', 0)
+# Load the dataset
+yes_images, yes_labels = process('brain_mri/yes', 1)
+no_images, no_labels = process('brain_mri/no', 0)
 
-# Combine cat and dog data
+# Combine the data after loading it
 X = np.array(yes_images + no_images)
 y = np.array(yes_labels + no_labels)
 
@@ -56,7 +58,7 @@ selected_features = random.randint(400, 1024)
 selected_indices = random.sample(range(total_features), selected_features)
 X = [[sublist[i] for i in selected_indices] for sublist in X]
 
-# Normalize values
+# Normalize the features
 scaler = preprocessing.StandardScaler()
 X = scaler.fit_transform(X)
 
@@ -66,7 +68,7 @@ X = X[:-15]
 y_future = y[-15:]
 y= y[:-15]
 
-# Splitting the data into train and validation sets
+# Splitting the data into training and validation sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
 # Model 1: K-Nearest Neighbors (KNN)
@@ -81,7 +83,7 @@ dt_model.fit(X_train, y_train)
 log_model = LogisticRegression(max_iter=1000, random_state=42)
 log_model.fit(X_train, y_train)
 
-# K-Fold Cross Validation  For each model
+# K-Fold Cross Validation For each model
 print()
 models = [knn_model, dt_model, log_model]
 model_names = ['K-Nearest Neighbors', 'Decision Tree', 'Logistic Regression']
