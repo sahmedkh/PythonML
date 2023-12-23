@@ -52,6 +52,17 @@ no_images, no_labels = process('brain_mri/no', 0)
 X = np.array(yes_images + no_images)
 y = np.array(yes_labels + no_labels)
 
+# Create indices for shuffling
+num_samples = len(X)
+indices = np.arange(num_samples)
+
+# Shuffle the indices
+np.random.shuffle(indices)
+
+# Shuffle X and y using the shuffled indices
+X = X[indices]
+y = y[indices]
+
 # Randomly select a subset of features from the dataset
 total_features = 1024
 selected_features = random.randint(400, 1024)
@@ -99,3 +110,17 @@ log_pred = log_model.predict(X_test)
 # Printing out the metrics
 print_metrics(y_test, knn_pred, dt_pred, log_pred)
 print()
+
+# # Future Prediction use
+# knn_future_pred = knn_model.predict(X_future)
+# dt_future_pred = dt_model.predict(X_future)
+# log_future_pred = log_model.predict(X_future)
+# # Calcultating the accuracy
+# accuracy_knn_future = accuracy_score(y_future, knn_future_pred)
+# accuracy_dt_future = accuracy_score(y_future, dt_future_pred)
+# accuracy_log_future = accuracy_score(y_future, log_future_pred)
+# # Printing the accuracy scores
+# print(f"Logistic Regression Accuracy on Future Data: {accuracy_log_future:.4f}")
+# print(f"K-Nearest Neighbors Accuracy on Future Data: {accuracy_knn_future:.4f}")
+# print(f"Decision Trees Accuracy on Future Data: {accuracy_dt_future:.4f}")
+# print()
