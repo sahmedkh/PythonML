@@ -12,14 +12,14 @@ x = df.iloc[:, :8]
 y = df.iloc[:, 8]
 
 # Splitting the dataset into training and testing
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, random_state=42)
 
 # Fitting the Naive-Bayes model
 nb = GaussianNB()
 nb.fit(x_train, y_train)
 
-# Fitting the sequential ANN (default is 3 layers: input, 1 hidden with 100 neurons, and output)
-ann = MLPClassifier(random_state=42)
+# Fitting the sequential ANN (with 3 hidden layers each with 100 neurons)
+ann = MLPClassifier(hidden_layer_sizes=(10, 10, 10), max_iter=300, batch_size=10, random_state=42)
 ann.fit(x_train, y_train)
 
 # Testing Naive-Bayes model
